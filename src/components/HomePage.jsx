@@ -2,42 +2,42 @@ import React from 'react';
 
 function HomePage({ onNavigate }) {
   return (
-    <div style={styles.container}>
-      <div style={styles.content}>
-        <div style={styles.hero} className="fade-in">
-          <h1 style={styles.title}>Relief Donation Hub</h1>
-          <p style={styles.subtitle}>
-            Connecting donors, recipients, and logistics for emergency relief
-          </p>
-          <button
-            onClick={() => onNavigate('auth')}
-            style={styles.ctaButton}
-            className="focus-outline"
-          >
-            Get Started
-          </button>
+    <div style={styles.container} className="ui-shell">
+      <div style={styles.content} className="ui-wrap">
+        <div style={styles.heroBlock} className="ui-panel fade-in">
+          <p style={styles.eyebrow}>Emergency Support Platform</p>
+          <h1 style={styles.title} className="page-title">Relief Donation Hub</h1>
+          <div style={styles.heroActions}>
+            <button
+              onClick={() => onNavigate('auth')}
+              style={styles.ctaButton}
+              className="focus-outline"
+            >
+              Enter Platform
+            </button>
+          </div>
         </div>
 
         <div style={styles.grid}>
           <div style={styles.card} className="slide-in">
-            <div style={styles.icon}>👨‍💼</div>
+            <div style={styles.icon}>Admin</div>
             <h3 style={styles.cardTitle}>Admin</h3>
-            <p style={styles.cardText}>Manage drives and oversee operations</p>
+            <p style={styles.cardText}>Launch drives, prioritize categories, and monitor live demand signals.</p>
           </div>
-          <div style={{...styles.card, animationDelay: '0.1s'}} className="slide-in">
-            <div style={styles.icon}>🤝</div>
+          <div style={{ ...styles.card, animationDelay: '0.1s' }} className="slide-in">
+            <div style={styles.icon}>Donor</div>
             <h3 style={styles.cardTitle}>Donor</h3>
-            <p style={styles.cardText}>List donations and support drives</p>
+            <p style={styles.cardText}>List available inventory and route contributions where urgency is highest.</p>
           </div>
-          <div style={{...styles.card, animationDelay: '0.2s'}} className="slide-in">
-            <div style={styles.icon}>🏠</div>
+          <div style={{ ...styles.card, animationDelay: '0.2s' }} className="slide-in">
+            <div style={styles.icon}>Recipient</div>
             <h3 style={styles.cardTitle}>Recipient</h3>
-            <p style={styles.cardText}>Request essentials and track deliveries</p>
+            <p style={styles.cardText}>Submit requests with context and keep visibility on fulfillment progress.</p>
           </div>
-          <div style={{...styles.card, animationDelay: '0.3s'}} className="slide-in">
-            <div style={styles.icon}>🚚</div>
+          <div style={{ ...styles.card, animationDelay: '0.3s' }} className="slide-in">
+            <div style={styles.icon}>Logistics</div>
             <h3 style={styles.cardTitle}>Logistics</h3>
-            <p style={styles.cardText}>Coordinate transport and deliveries</p>
+            <p style={styles.cardText}>Track shipments and update the last-mile status in one dashboard.</p>
           </div>
         </div>
       </div>
@@ -47,65 +47,79 @@ function HomePage({ onNavigate }) {
 
 const styles = {
   container: {
-    minHeight: '100vh',
-    background: 'linear-gradient(to bottom right, #faf5ff, #eff6ff)'
+    minHeight: '100vh'
   },
   content: {
-    maxWidth: '80rem',
-    margin: '0 auto',
-    padding: '4rem 1.5rem'
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1.4rem'
   },
-  hero: {
-    textAlign: 'center',
-    marginBottom: '4rem'
+  heroBlock: {
+    padding: '2rem 2rem 2.2rem',
+    textAlign: 'left'
+  },
+  eyebrow: {
+    textTransform: 'uppercase',
+    fontSize: '0.78rem',
+    fontWeight: '800',
+    letterSpacing: '0.1em',
+    color: '#1d4ed8',
+    marginBottom: '0.7rem'
   },
   title: {
-    fontSize: '3.75rem',
-    fontWeight: 'bold',
-    color: '#1f2937',
-    marginBottom: '1rem'
+    fontWeight: '900',
+    color: '#0f172a',
+    marginBottom: '0.7rem'
   },
-  subtitle: {
-    fontSize: '1.5rem',
-    color: '#4b5563',
-    marginBottom: '2rem'
+  heroActions: {
+    marginTop: '1.4rem',
+    display: 'flex',
+    gap: '0.7rem',
+    flexWrap: 'wrap'
   },
   ctaButton: {
-    backgroundColor: '#9333ea',
+    backgroundColor: '#1d4ed8',
     color: 'white',
-    padding: '1rem 2rem',
-    borderRadius: '0.75rem',
-    fontSize: '1.125rem',
-    fontWeight: '600',
-    border: 'none',
-    cursor: 'pointer',
-    transition: 'all 0.2s',
-    transform: 'scale(1)'
+    padding: '0.76rem 1.25rem',
+    borderRadius: '0.85rem',
+    fontSize: '0.98rem',
+    fontWeight: '700',
+    border: '1px solid #1e40af',
+    cursor: 'pointer'
   },
   grid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-    gap: '1.5rem',
-    marginTop: '4rem'
+    gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+    gap: '1rem'
   },
   card: {
-    backgroundColor: 'white',
-    padding: '1.5rem',
+    backgroundColor: 'rgba(255, 255, 255, 0.88)',
+    padding: '1.2rem',
     borderRadius: '1rem',
-    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)'
+    border: '1px solid #dbe4f0',
+    boxShadow: '0 18px 28px -24px rgba(15, 23, 42, 0.45)'
   },
   icon: {
-    fontSize: '3rem',
-    marginBottom: '1rem'
+    display: 'inline-flex',
+    padding: '0.36rem 0.75rem',
+    fontSize: '0.74rem',
+    textTransform: 'uppercase',
+    letterSpacing: '0.07em',
+    fontWeight: '800',
+    borderRadius: '999px',
+    backgroundColor: '#dbeafe',
+    color: '#1e40af',
+    marginBottom: '0.7rem'
   },
   cardTitle: {
-    fontSize: '1.25rem',
-    fontWeight: 'bold',
-    color: '#1f2937',
-    marginBottom: '0.5rem'
+    fontSize: '1.15rem',
+    fontWeight: '800',
+    color: '#0f172a',
+    marginBottom: '0.4rem'
   },
   cardText: {
-    color: '#4b5563'
+    color: '#475569',
+    fontSize: '0.94rem'
   }
 };
 

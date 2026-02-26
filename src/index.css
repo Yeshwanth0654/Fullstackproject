@@ -7,15 +7,22 @@
 html, body, #root {
   height: 100%;
   width: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Trebuchet MS', 'Segoe UI Variable', 'Segoe UI', sans-serif;
+  background:
+    radial-gradient(circle at top right, #dbeafe 0%, transparent 35%),
+    radial-gradient(circle at bottom left, #fde68a 0%, transparent 30%),
+    #f8fafc;
+  color: #0f172a;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+body {
+  line-height: 1.5;
+}
+
 .focus-outline:focus-visible {
-  outline: 3px solid #facc15;
+  outline: 3px solid #2563eb;
   outline-offset: 2px;
 }
 
@@ -67,7 +74,7 @@ html, body, #root {
 }
 
 .gradient-bg {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
 }
 
 .gradient-bg-2 {
@@ -80,4 +87,22 @@ html, body, #root {
 
 .gradient-bg-4 {
   background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.ui-shell {
+  min-height: 100vh;
+  padding: 2rem 1.25rem 3rem;
+}
+
+.ui-wrap {
+  max-width: 78rem;
+  margin: 0 auto;
+}
+
+.ui-panel {
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid #e2e8f0;
+  border-radius: 1.25rem;
+  box-shadow: 0 24px 40px -30px rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(8px);
 }

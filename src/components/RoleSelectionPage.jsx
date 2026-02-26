@@ -1,191 +1,148 @@
 import React from 'react';
 
-function RoleSelectionPage({ user, onSelectRole, onLogout }) {
+function RoleSelectionPage({ user, onSelectRole }) {
   const allRoles = [
     {
       id: 'admin',
       title: 'Admin',
-      icon: '⚙️',
       description: 'Manage donation drives and platform operations',
       color: '#f59e0b',
-      bgColor: '#fff7ed'
+      bgColor: '#fffbeb'
     },
     {
       id: 'donor',
       title: 'Donor',
-      icon: '🎁',
       description: 'List donations and track contributions',
-      color: '#10b981',
+      color: '#16a34a',
       bgColor: '#f0fdf4'
     },
     {
       id: 'recipient',
       title: 'Recipient',
-      icon: '🤝',
       description: 'Request essentials and track deliveries',
-      color: '#ef4444',
+      color: '#dc2626',
       bgColor: '#fef2f2'
     },
     {
       id: 'logistics',
       title: 'Logistics',
-      icon: '🚚',
       description: 'Coordinate deliveries and manage inventory',
-      color: '#3b82f6',
+      color: '#2563eb',
       bgColor: '#eff6ff'
     }
   ];
 
-  // Filter roles based on user's role
-  const availableRoles = user.role === 'admin' 
-    ? allRoles // Admin can access all dashboards
-    : allRoles.filter(role => role.id !== 'admin'); // Others cannot access admin
+  const availableRoles = user.role === 'admin' ? allRoles : allRoles.filter((role) => role.id !== 'admin');
 
   return (
-    <div style={styles.container}>
-      <header style={styles.header}>
-        <div style={styles.headerContent}>
-          <div>
-            <h1 style={styles.headerTitle}>Welcome, {user.name}!</h1>
-            <p style={styles.headerSubtitle}>
-              {user.role === 'admin' 
-                ? 'You have full access to all dashboards' 
-                : 'Choose a dashboard to access'}
-            </p>
-          </div>
-         
-        </div>
-      </header>
+    <div style={styles.container} className="ui-shell">
+      <div style={styles.wrap} className="ui-wrap">
+        <header style={styles.header} className="ui-panel">
+          <h1 style={styles.headerTitle}>Welcome, {user.name}</h1>
+          <p style={styles.headerSubtitle}>{user.role === 'admin' ? 'You have access to every dashboard view.' : 'Select the workspace you want to open.'}</p>
+        </header>
 
-      <main style={styles.main}>
-        {user.role === 'admin' && (
-          <div style={styles.adminBadge}>
-            ⚙️ Administrator Access - Full Platform Control
-          </div>
-        )}
+        {user.role === 'admin' && <div style={styles.adminBadge}>Administrator mode enabled</div>}
 
         <div style={styles.rolesGrid}>
           {availableRoles.map((role) => (
             <button
               key={role.id}
               onClick={() => onSelectRole(role.id)}
-              style={{
-                ...styles.roleCard,
-                backgroundColor: role.bgColor,
-                borderLeft: `6px solid ${role.color}`
-              }}
+              style={{ ...styles.roleCard, backgroundColor: role.bgColor, borderTop: `4px solid ${role.color}` }}
               className="focus-outline"
             >
-              <div style={styles.roleIcon}>{role.icon}</div>
-              <h2 style={{...styles.roleTitle, color: role.color}}>{role.title}</h2>
+              <div style={{ ...styles.roleTag, color: role.color, borderColor: role.color }}>{role.title}</div>
+              <h2 style={{ ...styles.roleTitle, color: role.color }}>{role.title} Dashboard</h2>
               <p style={styles.roleDescription}>{role.description}</p>
-              <div style={{...styles.accessButton, backgroundColor: role.color}}>
-                Access Dashboard →
-              </div>
+              <div style={{ ...styles.accessButton, backgroundColor: role.color }}>Open Workspace</div>
             </button>
           ))}
         </div>
-      </main>
+      </div>
     </div>
   );
 }
 
 const styles = {
   container: {
-    minHeight: '100vh',
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+    minHeight: '100vh'
   },
-  header: {
-    backgroundColor: 'white',
-    boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
-    padding: '1.5rem'
-  },
-  headerContent: {
-    maxWidth: '80rem',
-    margin: '0 auto',
+  wrap: {
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexWrap: 'wrap',
+    flexDirection: 'column',
     gap: '1rem'
   },
+  header: {
+    padding: '1.3rem 1.4rem'
+  },
   headerTitle: {
-    fontSize: '1.875rem',
-    fontWeight: 'bold',
-    color: '#1f2937'
+    fontSize: '2rem',
+    fontWeight: '900',
+    color: '#0f172a'
   },
   headerSubtitle: {
     fontSize: '1rem',
-    color: '#6b7280',
+    color: '#64748b',
     marginTop: '0.25rem'
   },
-  logoutButton: {
-    backgroundColor: '#fee2e2',
-    color: '#dc2626',
-    padding: '0.625rem 1.25rem',
-    borderRadius: '0.5rem',
-    border: 'none',
-    cursor: 'pointer',
-    fontWeight: '600',
-    transition: 'background-color 0.2s'
-  },
-  main: {
-    maxWidth: '80rem',
-    margin: '0 auto',
-    padding: '3rem 1.5rem'
-  },
   adminBadge: {
-    backgroundColor: '#fff7ed',
-    color: '#ea580c',
-    padding: '1rem 1.5rem',
-    borderRadius: '0.75rem',
+    alignSelf: 'start',
+    backgroundColor: '#fffbeb',
+    color: '#92400e',
+    padding: '0.65rem 0.95rem',
+    borderRadius: '999px',
     textAlign: 'center',
-    fontWeight: '600',
-    fontSize: '1.1rem',
-    marginBottom: '2rem',
-    border: '2px solid #f59e0b',
-    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+    fontWeight: '700',
+    fontSize: '0.86rem',
+    border: '1px solid #fcd34d'
   },
   rolesGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-    gap: '1.5rem'
-  },
-  roleCard: {
-    padding: '2rem',
-    borderRadius: '1rem',
-    border: 'none',
-    cursor: 'pointer',
-    textAlign: 'center',
-    transition: 'transform 0.2s, box-shadow 0.2s',
-    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
     gap: '1rem'
   },
-  roleIcon: {
-    fontSize: '3.5rem',
-    marginBottom: '0.5rem'
+  roleCard: {
+    padding: '1.2rem',
+    borderRadius: '1rem',
+    border: '1px solid #e2e8f0',
+    cursor: 'pointer',
+    textAlign: 'left',
+    transition: 'transform 0.2s, box-shadow 0.2s',
+    boxShadow: '0 20px 35px -30px rgba(15, 23, 42, 0.45)',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '0.7rem'
+  },
+  roleTag: {
+    alignSelf: 'start',
+    fontSize: '0.7rem',
+    textTransform: 'uppercase',
+    letterSpacing: '0.08em',
+    fontWeight: '800',
+    border: '1px solid',
+    borderRadius: '999px',
+    padding: '0.2rem 0.55rem'
   },
   roleTitle: {
-    fontSize: '1.5rem',
-    fontWeight: 'bold',
+    fontSize: '1.3rem',
+    fontWeight: '900',
     margin: 0
   },
   roleDescription: {
-    color: '#4b5563',
-    fontSize: '0.95rem',
+    color: '#334155',
+    fontSize: '0.94rem',
     lineHeight: '1.5',
     margin: 0
   },
   accessButton: {
-    marginTop: '0.5rem',
-    padding: '0.75rem 1.5rem',
-    borderRadius: '0.5rem',
+    marginTop: '0.25rem',
+    alignSelf: 'start',
+    padding: '0.52rem 0.85rem',
+    borderRadius: '0.65rem',
     color: 'white',
-    fontWeight: '600',
-    fontSize: '0.95rem'
+    fontWeight: '700',
+    fontSize: '0.84rem'
   }
 };
 

@@ -6,13 +6,14 @@ function NavigationHeader({ currentPage, onNavigate, user, onLogout }) {
       <div style={styles.container}>
         <div style={styles.leftSection}>
           <h1 style={styles.logo}>Relief Hub</h1>
+          <span style={styles.tagline}>Crisis Response Network</span>
         </div>
         <div style={styles.rightSection}>
           <button
             onClick={() => onNavigate('home')}
             style={{
               ...styles.navButton,
-              color: currentPage === 'home' ? '#9333ea' : '#4b5563'
+              ...(currentPage === 'home' ? styles.activeNavButton : null)
             }}
             className="focus-outline"
           >
@@ -22,7 +23,7 @@ function NavigationHeader({ currentPage, onNavigate, user, onLogout }) {
             onClick={() => onNavigate('about')}
             style={{
               ...styles.navButton,
-              color: currentPage === 'about' ? '#9333ea' : '#4b5563'
+              ...(currentPage === 'about' ? styles.activeNavButton : null)
             }}
             className="focus-outline"
           >
@@ -32,7 +33,7 @@ function NavigationHeader({ currentPage, onNavigate, user, onLogout }) {
             onClick={() => onNavigate('contact')}
             style={{
               ...styles.navButton,
-              color: currentPage === 'contact' ? '#9333ea' : '#4b5563'
+              ...(currentPage === 'contact' ? styles.activeNavButton : null)
             }}
             className="focus-outline"
           >
@@ -58,9 +59,13 @@ function NavigationHeader({ currentPage, onNavigate, user, onLogout }) {
 
 const styles = {
   nav: {
-    backgroundColor: 'white',
-    boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
-    padding: '1rem 1.5rem'
+    position: 'sticky',
+    top: 0,
+    zIndex: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    borderBottom: '1px solid #e2e8f0',
+    backdropFilter: 'blur(8px)',
+    padding: '0.85rem 1.5rem'
   },
   container: {
     maxWidth: '80rem',
@@ -72,36 +77,58 @@ const styles = {
   leftSection: {
     display: 'flex',
     alignItems: 'center',
-    gap: '2rem'
+    gap: '0.85rem'
   },
   logo: {
-    fontSize: '1.5rem',
-    fontWeight: 'bold',
-    color: '#9333ea'
+    fontSize: '1.35rem',
+    fontWeight: '800',
+    letterSpacing: '0.01em',
+    color: '#0f172a'
+  },
+  tagline: {
+    fontSize: '0.75rem',
+    fontWeight: '700',
+    color: '#1d4ed8',
+    padding: '0.25rem 0.65rem',
+    borderRadius: '999px',
+    backgroundColor: '#dbeafe'
   },
   rightSection: {
     display: 'flex',
     alignItems: 'center',
-    gap: '1.5rem'
+    gap: '0.6rem',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-end'
   },
   navButton: {
-    background: 'none',
-    border: 'none',
+    background: '#ffffff',
+    border: '1px solid #e2e8f0',
+    color: '#334155',
     fontWeight: '500',
     cursor: 'pointer',
-    transition: 'color 0.2s',
-    fontSize: '1rem'
+    transition: 'all 0.2s',
+    fontSize: '0.94rem',
+    padding: '0.42rem 0.82rem',
+    borderRadius: '999px'
+  },
+  activeNavButton: {
+    backgroundColor: '#dbeafe',
+    color: '#1e40af',
+    border: '1px solid #93c5fd'
   },
   userName: {
-    color: '#1f2937'
+    color: '#0f172a',
+    fontWeight: '600',
+    marginLeft: '0.35rem'
   },
   logoutButton: {
-    backgroundColor: '#ef4444',
+    backgroundColor: '#dc2626',
     color: 'white',
-    padding: '0.5rem 1rem',
-    borderRadius: '0.5rem',
+    padding: '0.45rem 0.9rem',
+    borderRadius: '999px',
     border: 'none',
     cursor: 'pointer',
+    fontWeight: '700',
     transition: 'background-color 0.2s'
   }
 };

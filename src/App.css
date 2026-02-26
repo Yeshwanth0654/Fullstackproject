@@ -1,6 +1,7 @@
 .app-container {
   height: 100%;
   width: 100%;
+  color: #0f172a;
 }
 
 /* Tailwind-like utility classes */
@@ -82,3 +83,15 @@
   --tw-gradient-to: #ecfeff;
 }
 
+.page-title {
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.section-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1.25rem;
+  box-shadow: 0 20px 35px -30px rgba(15, 23, 42, 0.5);
+}

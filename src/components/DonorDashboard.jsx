@@ -11,7 +11,7 @@ function DonorDashboard({ user, onBack }) {
   });
   const [message, setMessage] = useState('');
 
-  const myDonations = getFromStorage(STORAGE_KEYS.DONATIONS).filter(d => d.created_by === user.email);
+  const myDonations = getFromStorage(STORAGE_KEYS.DONATIONS).filter((d) => d.created_by === user.email);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,74 +33,36 @@ function DonorDashboard({ user, onBack }) {
   };
 
   return (
-    <div style={styles.container}>
-      <header style={styles.header}>
-        <div style={styles.headerContent}>
+    <div style={styles.container} className="ui-shell">
+      <div style={styles.wrap} className="ui-wrap">
+        <header style={styles.header} className="ui-panel">
           <div style={styles.headerLeft}>
-            <button
-              onClick={onBack}
-              style={styles.backButton}
-              className="focus-outline"
-            >
-              ← Back
-            </button>
+            <button onClick={onBack} style={styles.backButton} className="focus-outline">Back</button>
             <div>
               <h1 style={styles.headerTitle}>Donor Dashboard</h1>
               <p style={styles.headerSubtitle}>List and track your donations</p>
             </div>
           </div>
-          <div style={styles.headerRight}>
-            <p style={styles.userName}>{user.name}</p>
-            <p style={styles.userEmail}>{user.email}</p>
-          </div>
-        </div>
-      </header>
+          <div style={styles.headerRight}><p style={styles.userName}>{user.name}</p><p style={styles.userEmail}>{user.email}</p></div>
+        </header>
 
-      <main style={styles.main}>
-        {/* Stats */}
         <div style={styles.statsGrid}>
-          <div style={{...styles.statCard, borderLeft: '4px solid #10b981'}}>
-            <p style={styles.statLabel}>My Donations</p>
-            <p style={{...styles.statValue, color: '#10b981'}}>{myDonations.length}</p>
-          </div>
-          <div style={{...styles.statCard, borderLeft: '4px solid #10b981'}}>
-            <p style={styles.statLabel}>Total Items Donated</p>
-            <p style={{...styles.statValue, color: '#10b981'}}>
-              {myDonations.reduce((sum, d) => sum + (Number(d.quantity) || 0), 0)}
-            </p>
-          </div>
+          <div style={styles.statCard}><p style={styles.statLabel}>My Donations</p><p style={styles.statValue}>{myDonations.length}</p></div>
+          <div style={styles.statCard}><p style={styles.statLabel}>Items Donated</p><p style={styles.statValue}>{myDonations.reduce((sum, d) => sum + (Number(d.quantity) || 0), 0)}</p></div>
         </div>
 
-        {/* List Donation Form */}
-        <div style={styles.card}>
+        <div style={styles.card} className="section-card">
           <h2 style={styles.cardTitle}>List New Donation</h2>
           <form onSubmit={handleSubmit} style={styles.form}>
             <div style={styles.formGroup}>
-              <label htmlFor="title" style={styles.label}>What are you donating?</label>
-              <input
-                id="title"
-                name="title"
-                type="text"
-                required
-                value={formData.title}
-                onChange={(e) => setFormData({...formData, title: e.target.value})}
-                style={styles.input}
-                placeholder="e.g. 20 packs of canned goods"
-                className="focus-outline"
-              />
+              <label htmlFor="title" style={styles.label}>Donation Item</label>
+              <input id="title" name="title" type="text" required value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} style={styles.input} placeholder="20 packs of canned goods" className="focus-outline" />
             </div>
 
             <div style={styles.formRow}>
               <div style={styles.formGroup}>
                 <label htmlFor="category" style={styles.label}>Category</label>
-                <select
-                  id="category"
-                  name="category"
-                  value={formData.category}
-                  onChange={(e) => setFormData({...formData, category: e.target.value})}
-                  style={styles.input}
-                  className="focus-outline"
-                >
+                <select id="category" name="category" value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })} style={styles.input} className="focus-outline">
                   <option value="food">Food</option>
                   <option value="clothing">Clothing</option>
                   <option value="shelter">Shelter Items</option>
@@ -110,28 +72,11 @@ function DonorDashboard({ user, onBack }) {
               </div>
               <div style={styles.formGroup}>
                 <label htmlFor="quantity" style={styles.label}>Quantity</label>
-                <input
-                  id="quantity"
-                  name="quantity"
-                  type="number"
-                  min="1"
-                  value={formData.quantity}
-                  onChange={(e) => setFormData({...formData, quantity: e.target.value})}
-                  style={styles.input}
-                  placeholder="e.g. 20"
-                  className="focus-outline"
-                />
+                <input id="quantity" name="quantity" type="number" min="1" value={formData.quantity} onChange={(e) => setFormData({ ...formData, quantity: e.target.value })} style={styles.input} placeholder="20" className="focus-outline" />
               </div>
               <div style={styles.formGroup}>
                 <label htmlFor="priority" style={styles.label}>Priority</label>
-                <select
-                  id="priority"
-                  name="priority"
-                  value={formData.priority}
-                  onChange={(e) => setFormData({...formData, priority: e.target.value})}
-                  style={styles.input}
-                  className="focus-outline"
-                >
+                <select id="priority" name="priority" value={formData.priority} onChange={(e) => setFormData({ ...formData, priority: e.target.value })} style={styles.input} className="focus-outline">
                   <option value="high">High-need areas</option>
                   <option value="medium">Medium-need areas</option>
                   <option value="low">Long-term support</option>
@@ -141,244 +86,70 @@ function DonorDashboard({ user, onBack }) {
 
             <div style={styles.formGroup}>
               <label htmlFor="location" style={styles.label}>Pickup Location</label>
-              <input
-                id="location"
-                name="location"
-                type="text"
-                value={formData.location}
-                onChange={(e) => setFormData({...formData, location: e.target.value})}
-                style={styles.input}
-                placeholder="City / Barangay"
-                className="focus-outline"
-              />
+              <input id="location" name="location" type="text" value={formData.location} onChange={(e) => setFormData({ ...formData, location: e.target.value })} style={styles.input} placeholder="City or locality" className="focus-outline" />
             </div>
 
-            {message && (
-              <div style={styles.successMessage}>
-                {message}
-              </div>
-            )}
+            {message && <div style={styles.successMessage}>{message}</div>}
 
-            <button
-              type="submit"
-              style={styles.submitButton}
-              className="focus-outline"
-            >
-              List Donation
-            </button>
+            <button type="submit" style={styles.submitButton} className="focus-outline">List Donation</button>
           </form>
         </div>
 
-        {/* My Donations */}
-        <div style={styles.card}>
+        <div style={styles.card} className="section-card">
           <h2 style={styles.cardTitle}>My Donations</h2>
-          <div style={styles.donationsList}>
+          <div style={styles.list}>
             {myDonations.length === 0 ? (
-              <p style={styles.emptyMessage}>
-                You haven't listed any donations yet. Start by listing your first donation above!
-              </p>
+              <p style={styles.emptyMessage}>You have not listed donations yet.</p>
             ) : (
               myDonations.map((donation) => (
-                <div 
-                  key={donation.id}
-                  style={styles.donationItem}
-                >
-                  <h3 style={styles.donationTitle}>{donation.title}</h3>
-                  <div style={styles.donationMeta}>
-                    <span>📦 {donation.category}</span>
-                    <span>🔢 Qty: {donation.quantity}</span>
-                    <span>📍 {donation.location || 'N/A'}</span>
-                    <span style={donation.priority === 'high' ? {fontWeight: '600'} : {}}>
-                      {donation.priority === 'high' ? '🔴' : donation.priority === 'medium' ? '🟡' : '🟢'} {donation.priority}
-                    </span>
+                <div key={donation.id} style={styles.item}>
+                  <h3 style={styles.itemTitle}>{donation.title}</h3>
+                  <div style={styles.itemMeta}>
+                    <span>{donation.category}</span>
+                    <span>Qty {donation.quantity}</span>
+                    <span>{donation.location || 'N/A'}</span>
+                    <span>{donation.priority}</span>
+                    <span>{donation.status}</span>
                   </div>
-                  <span style={styles.statusBadge}>
-                    {donation.status}
-                  </span>
                 </div>
               ))
             )}
           </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 }
 
 const styles = {
-  container: {
-    minHeight: '100vh',
-    background: 'linear-gradient(to bottom right, #f0fdf4, #ecfdf5)'
-  },
-  header: {
-    backgroundColor: 'white',
-    boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
-    padding: '1rem',
-    borderBottom: '4px solid #10b981'
-  },
-  headerContent: {
-    maxWidth: '80rem',
-    margin: '0 auto',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between'
-  },
-  headerLeft: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '0.75rem'
-  },
-  backButton: {
-    backgroundColor: '#d1fae5',
-    color: '#059669',
-    padding: '0.5rem 1rem',
-    borderRadius: '0.5rem',
-    border: 'none',
-    cursor: 'pointer',
-    fontWeight: '500',
-    transition: 'background-color 0.2s'
-  },
-  headerTitle: {
-    fontSize: '1.5rem',
-    fontWeight: 'bold',
-    color: '#059669'
-  },
-  headerSubtitle: {
-    fontSize: '0.875rem',
-    color: '#4b5563'
-  },
-  headerRight: {
-    textAlign: 'right'
-  },
-  userName: {
-    fontWeight: '500',
-    color: '#1f2937'
-  },
-  userEmail: {
-    fontSize: '0.875rem',
-    color: '#4b5563'
-  },
-  main: {
-    maxWidth: '80rem',
-    margin: '0 auto',
-    padding: '1.5rem',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '1.5rem'
-  },
-  statsGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-    gap: '1rem'
-  },
-  statCard: {
-    backgroundColor: 'white',
-    padding: '1.5rem',
-    borderRadius: '0.75rem',
-    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)'
-  },
-  statLabel: {
-    color: '#4b5563',
-    marginBottom: '0.25rem'
-  },
-  statValue: {
-    fontSize: '2.25rem',
-    fontWeight: 'bold'
-  },
-  card: {
-    backgroundColor: 'white',
-    padding: '1.5rem',
-    borderRadius: '1rem',
-    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)'
-  },
-  cardTitle: {
-    fontSize: '1.5rem',
-    fontWeight: 'bold',
-    color: '#1f2937',
-    marginBottom: '1rem'
-  },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '1rem'
-  },
-  formRow: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-    gap: '1rem'
-  },
-  formGroup: {
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  label: {
-    marginBottom: '0.375rem',
-    fontWeight: '500',
-    color: '#374151'
-  },
-  input: {
-    width: '100%',
-    borderRadius: '0.75rem',
-    padding: '0.5rem 1rem',
-    border: '2px solid #d1fae5',
-    fontSize: '1rem'
-  },
-  successMessage: {
-    backgroundColor: '#d1fae5',
-    color: '#065f46',
-    textAlign: 'center',
-    padding: '0.5rem 0.75rem',
-    borderRadius: '0.5rem'
-  },
-  submitButton: {
-    width: '100%',
-    borderRadius: '0.75rem',
-    padding: '0.75rem',
-    fontWeight: '600',
-    backgroundColor: '#10b981',
-    color: 'white',
-    border: 'none',
-    cursor: 'pointer',
-    transition: 'background-color 0.2s'
-  },
-  donationsList: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '0.75rem'
-  },
-  emptyMessage: {
-    color: '#4b5563',
-    textAlign: 'center',
-    padding: '2rem'
-  },
-  donationItem: {
-    padding: '1rem',
-    borderRadius: '0.75rem',
-    backgroundColor: '#f0fdf4',
-    borderLeft: '4px solid #10b981'
-  },
-  donationTitle: {
-    fontWeight: '600',
-    color: '#1f2937',
-    fontSize: '1.125rem'
-  },
-  donationMeta: {
-    display: 'flex',
-    gap: '0.75rem',
-    marginTop: '0.5rem',
-    fontSize: '0.875rem',
-    color: '#4b5563'
-  },
-  statusBadge: {
-    display: 'inline-block',
-    marginTop: '0.5rem',
-    padding: '0.25rem 0.75rem',
-    borderRadius: '9999px',
-    fontSize: '0.75rem',
-    fontWeight: '500',
-    backgroundColor: '#d1fae5',
-    color: '#065f46'
-  }
+  container: { minHeight: '100vh' },
+  wrap: { display: 'flex', flexDirection: 'column', gap: '1rem' },
+  header: { padding: '1rem 1.2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.7rem' },
+  headerLeft: { display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' },
+  backButton: { backgroundColor: '#dcfce7', color: '#166534', padding: '0.45rem 0.8rem', borderRadius: '0.6rem', border: '1px solid #86efac', cursor: 'pointer', fontWeight: '700' },
+  headerTitle: { fontSize: '1.4rem', fontWeight: '900', color: '#0f172a' },
+  headerSubtitle: { fontSize: '0.88rem', color: '#64748b' },
+  headerRight: { textAlign: 'right' },
+  userName: { fontWeight: '700', color: '#0f172a' },
+  userEmail: { fontSize: '0.82rem', color: '#64748b' },
+  statsGrid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', gap: '0.75rem' },
+  statCard: { backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '0.95rem', padding: '0.9rem', boxShadow: '0 16px 28px -26px rgba(15, 23, 42, 0.45)' },
+  statLabel: { color: '#64748b', fontSize: '0.82rem', marginBottom: '0.2rem' },
+  statValue: { fontSize: '1.7rem', fontWeight: '900', color: '#15803d' },
+  card: { padding: '1.2rem' },
+  cardTitle: { fontSize: '1.18rem', fontWeight: '900', color: '#0f172a', marginBottom: '0.8rem' },
+  form: { display: 'flex', flexDirection: 'column', gap: '0.75rem' },
+  formRow: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', gap: '0.75rem' },
+  formGroup: { display: 'flex', flexDirection: 'column' },
+  label: { marginBottom: '0.34rem', fontWeight: '700', fontSize: '0.84rem', color: '#334155' },
+  input: { width: '100%', borderRadius: '0.68rem', padding: '0.62rem 0.8rem', border: '1px solid #cbd5e1', fontSize: '0.92rem', backgroundColor: '#ffffff', color: '#0f172a' },
+  successMessage: { backgroundColor: '#dcfce7', color: '#166534', textAlign: 'center', padding: '0.48rem 0.7rem', borderRadius: '0.58rem', border: '1px solid #86efac' },
+  submitButton: { width: '100%', borderRadius: '0.68rem', padding: '0.7rem', fontWeight: '700', backgroundColor: '#16a34a', color: 'white', border: '1px solid #15803d', cursor: 'pointer' },
+  list: { display: 'flex', flexDirection: 'column', gap: '0.6rem' },
+  emptyMessage: { color: '#64748b', textAlign: 'center', padding: '1.2rem' },
+  item: { padding: '0.85rem', borderRadius: '0.75rem', backgroundColor: '#f0fdf4', border: '1px solid #86efac' },
+  itemTitle: { fontWeight: '700', color: '#0f172a', fontSize: '1rem' },
+  itemMeta: { display: 'flex', gap: '0.6rem', marginTop: '0.45rem', fontSize: '0.8rem', color: '#64748b', flexWrap: 'wrap' }
 };
 
 export default DonorDashboard;
